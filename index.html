@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#2d2a3f">
+    <link rel="icon" type="image/jpeg" href="images/images.jpg">
+    <title>Administrator Secret Panel</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        :root {
+            --purple: #2d2a3f;
+            --gold: #ffd438;
+            --cream: #fff7df;
+            --white: #fff;
+            --muted: #d2cfdb;
+            --panel: #38334c;
+            --line: #ffffff30
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            background: var(--purple);
+            color: var(--white);
+            font-family: Inter, Arial, sans-serif;
+            overflow-x: hidden
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .wrap {
+            width: min(1200px, calc(100% - 52px));
+            margin: auto
+        }
+
+        .nav {
+            height: 88px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 4;
+            border-bottom: 1px solid #ffffff1c
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: .14em
+        }
+
+        .brand img {
+            width: 49px;
+            height: 49px;
+            object-fit: contain
+        }
+
+        .links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            color: #e0dce9;
+            font-size: 12px;
+            font-weight: 600
+        }
+
+        .links a:hover {
+            color: var(--gold)
+        }
+
+        .support {
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            gap: 9px;
+            align-items: center
+        }
+
+        .support:before {
+            content: '♥';
+            color: var(--gold);
+            font-size: 17px
+        }
+
+        .menu {
+            display: none;
+            border: 0;
+            background: none;
+            color: #fff;
+            font-size: 27px
+        }
+
+        .hero {
+            height: 790px;
+            max-height: calc(100vh - 20px);
+            min-height: 700px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: center;
+            overflow: hidden
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: -20px;
+            background: linear-gradient(180deg, #2d2a3f50 0%, #2d2a3f44 45%, #2d2a3ff2 100%), url('images/grandm.jpg') center 39%/cover;
+            opacity: .78;
+            animation: slowzoom 24s ease-in-out infinite alternate
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            z-index: 0;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 40%, transparent 0%, #2d2a3f20 50%, #2d2a3f85 100%)
+        }
+
+        .hero-copy {
+            position: relative;
+            z-index: 2;
+            padding-top: 58px
+        }
+
+        .hero h1 {
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: clamp(38px, 6.1vw, 75px);
+            line-height: 1.02;
+            letter-spacing: .045em;
+            margin: 0;
+            text-shadow: 0 4px 50px #fff6
+        }
+
+        .hero h1 span {
+            color: var(--gold)
+        }
+
+        .online {
+            margin: 24px auto 0;
+            font-size: 17px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-shadow: 0 2px 18px #fff8
+        }
+
+        .online-icon {
+            color: var(--gold);
+            font-size: 23px
+        }
+
+        .online small {
+            font-weight: 500;
+            font-size: 12px;
+            display: block;
+            color: #eee
+        }
+
+        .hero-art {
+            position: absolute;
+            z-index: 1;
+            width: min(730px, 78vw);
+            height: auto;
+            left: 50%;
+            top: 175px;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 25px 50px #100d17a8);
+            animation: artfloat 6s ease-in-out infinite
+        }
+
+        .hero-tag {
+            position: absolute;
+            z-index: 3;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #211e30d9;
+            border: 1px solid #ffffff45;
+            padding: 11px 17px;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            white-space: nowrap
+        }
+
+        .hero-tag b {
+            color: var(--gold);
+            font-size: 14px;
+            margin-left: 7px
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            color: #c7c2d1;
+            letter-spacing: .2em;
+            text-transform: uppercase
+        }
+
+        .scroll-hint:after {
+            content: '↓';
+            display: block;
+            font-size: 18px;
+            color: var(--gold);
+            margin-top: 6px;
+            animation: bob 1.5s infinite
+        }
+
+        .section {
+            padding: 76px 0
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px
+        }
+
+        .kicker {
+            font-size: 10px;
+            color: var(--gold);
+            font-weight: 800;
+            letter-spacing: .24em;
+            text-transform: uppercase
+        }
+
+        .intro h2 {
+            font-size: clamp(30px, 4vw, 49px);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin: 11px 0
+        }
+
+        .intro p {
+            color: var(--muted);
+            font-size: 12px
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px
+        }
+
+        .feature {
+            position: relative;
+            min-height: 255px;
+            display: flex;
+            align-items: end;
+            overflow: hidden;
+            background: #39354b;
+            border: 1px solid #ffffff18;
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 93% 100%, 0 100%);
+            transition: transform .3s
+        }
+
+        .feature:hover {
+            transform: translateY(-6px)
+        }
+
+        .feature img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s
+        }
+
+        .feature:hover img {
+            transform: scale(1.05)
+        }
+
+        .feature:after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, #171522eF 0%, #17152230 78%)
+        }
+
+        .feature-copy {
+            position: relative;
+            z-index: 1;
+            padding: 20px
+        }
+
+        .feature-copy h3 {
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            margin: 0 0 8px
+        }
+
+        .feature-copy p {
+            font-size: 10px;
+            line-height: 1.6;
+            color: #e4e0e9;
+            margin: 0
+        }
+
+        .offer-section {
+            position: relative;
+            padding: 75px 0 90px;
+            background: linear-gradient(180deg, #211e30 0%, #272437 100%);
+            overflow: hidden
+        }
+
+        .offer-section:before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('images/back.png') center/cover;
+            opacity: .1;
+            pointer-events: none
+        }
+
+        .offer-wrap {
+            position: relative;
+            z-index: 1
+        }
+
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px
+        }
+
+        .offer {
+            background: #ffffff0b;
+            border: 1px solid #ffffff24;
+            padding: 18px 20px 20px;
+            backdrop-filter: blur(8px);
+            transition: .25s
+        }
+
+        .offer:hover {
+            transform: translateY(-5px);
+            background: #ffffff12;
+            border-color: #ffd43887
+        }
+
+        .offer-head {
+            display: flex;
+            align-items: center;
+            gap: 13px
+        }
+
+        .offer-head img {
+            width: 61px;
+            height: 61px;
+            object-fit: contain;
+            background: #ffd438;
+            border-radius: 8px
+        }
+
+        .offer-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 800;
+            letter-spacing: .14em
+        }
+
+        .offer h3 {
+            font-size: 18px;
+            margin: 5px 0 0
+        }
+
+        .offer p {
+            min-height: 37px;
+            color: #d2cedb;
+            font-size: 10px;
+            line-height: 1.55;
+            margin: 15px 0
+        }
+
+        .claim {
+            height: 40px;
+            width: 100%;
+            background: var(--gold);
+            border: 0;
+            border-radius: 4px;
+            color: #292538;
+            font-weight: 900;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            cursor: pointer;
+            transition: .2s
+        }
+
+        .claim:hover {
+            background: #ffe176;
+            transform: translateY(-2px)
+        }
+
+        .claim.done {
+            background: #a7d783
+        }
+
+        .social {
+            margin: 76px auto 0;
+            text-align: center
+        }
+
+        .social h2 {
+            font-size: 31px;
+            text-transform: uppercase;
+            margin: 10px 0
+        }
+
+        .social p {
+            color: var(--muted);
+            font-size: 11px
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 11px;
+            margin-top: 22px
+        }
+
+        .social-links a {
+            border: 1px solid #ffffff44;
+            padding: 11px 15px;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            transition: .2s
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: #252136
+        }
+
+        .footer {
+            border-top: 1px solid #ffffff24;
+            padding: 26px 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #bbb6c8;
+            font-size: 9px
+        }
+
+        .footer b {
+            color: #fff
+        }
+
+        .toast {
+            position: fixed;
+            z-index: 10;
+            bottom: 22px;
+            left: 50%;
+            transform: translate(-50%, 15px);
+            opacity: 0;
+            transition: .3s;
+            background: #fff7df;
+            color: #292538;
+            padding: 13px 18px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: 0 12px 34px #0008;
+            pointer-events: none
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0)
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: .7s
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none
+        }
+
+        @keyframes artfloat {
+
+            0%,
+            100% {
+                margin-top: 0
+            }
+
+            50% {
+                margin-top: -12px
+            }
+        }
+
+        @keyframes slowzoom {
+            to {
+                transform: scale(1.08)
+            }
+        }
+
+        @keyframes bob {
+            50% {
+                transform: translateY(5px)
+            }
+        }
+
+        @media(max-width:760px) {
+            .wrap {
+                width: calc(100% - 34px)
+            }
+
+            .nav {
+                height: 70px
+            }
+
+            .brand img {
+                width: 39px;
+                height: 39px
+            }
+
+            .brand {
+                font-size: 11px
+            }
+
+            .links,
+            .support {
+                display: none
+            }
+
+            .menu {
+                display: block
+            }
+
+            .hero {
+                min-height: 665px;
+                height: calc(100svh - 70px);
+                max-height: 780px
+            }
+
+            .hero-bg {
+                background: linear-gradient(180deg, #2d2a3f4a, #2d2a3f26 40%, #2d2a3ff0 100%), url('images/grandm.jpg') 51% center/cover
+            }
+
+            .hero-copy {
+                padding-top: 55px
+            }
+
+            .hero h1 {
+                font-size: clamp(37px, 9vw, 57px)
+            }
+
+            .online {
+                margin-top: 18px
+            }
+
+            .hero-art {
+                width: 112vw;
+                max-width: 610px;
+                top: 230px
+            }
+
+            .hero-tag {
+                bottom: 73px
+            }
+
+            .scroll-hint {
+                bottom: 14px
+            }
+
+            .section {
+                padding: 55px 0
+            }
+
+            .feature-grid,
+            .offer-grid {
+                grid-template-columns: 1fr
+            }
+
+            .feature {
+                min-height: 230px
+            }
+
+            .offer {
+                padding: 15px
+            }
+
+            .offer p {
+                min-height: 0
+            }
+
+            .social {
+                margin-top: 57px
+            }
+
+            .social h2 {
+                font-size: 25px
+            }
+
+            .social-links {
+                flex-wrap: wrap
+            }
+
+            .footer {
+                gap: 12px;
+                flex-direction: column;
+                align-items: flex-start
+            }
+
+            .offer-section {
+                padding: 58px 0 65px
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *:before,
+            *:after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="wrap nav"><a class="brand" href="#top"><img src="images/logo.png"
+                alt="Administrator Secret Panel"><span>ADMINISTRATOR SECRET PANEL</span></a>
+        <nav class="links"><a href="#world">THE WORLD</a><a href="#offers">FREE OFFERS</a><a
+                href="#community">COMMUNITY</a></nav><a class="support" href="https://wa.me/2349037141652">Administrator: 09037141652</a><button
+            class="menu" aria-label="Open menu"
+            onclick="document.getElementById('offers').scrollIntoView({behavior:'smooth'})">☰</button>
+    </header>
+    <main id="top">
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-copy">
+                <h1>Administrator<br><span>Secret Panel</span></h1>
+                <div class="online"><span class="online-icon">◉</span><div>Account locked<small>We are here for you</small></div></div>
+            </div><img class="hero-art" src="images/slider-0.BKH_ym7C.png" alt="Golden rewards in the Grandmobile city">
+            <div class="hero-tag">Account locked <b>Get help</b> · <a href="https://wa.me/2349037141652">09037141652</a></div><a class="scroll-hint" href="#world">What
+                awaits you</a>
+        </section>
+        <section class="wrap section reveal" id="world">
+            <div class="intro">
+                <div class="kicker">Build your own story</div>
+                <h2>What awaits you</h2>
+                <p>Choose your path and make the city yours.</p>
+            </div>
+            <div class="feature-grid">
+                <article class="feature"><img src="images/style-en.BsV_BiLe.png" alt="Create your character style">
+                    <div class="feature-copy">
+                        <h3>Express yourself</h3>
+                        <p>Create your own style and stand out in the city.</p>
+                    </div>
+                </article>
+                <article class="feature"><img src="images/border-en.Bs5Y_Cog.png" alt="Explore the Grandmobile city">
+                    <div class="feature-copy">
+                        <h3>Explore beyond limits</h3>
+                        <p>Set out into a bustling metropolis full of new views.</p>
+                    </div>
+                </article>
+                <article class="feature"><img src="images/quickly-en.DhWwuC08.png" alt="Choose and customize your cars">
+                    <div class="feature-copy">
+                        <h3>Dominate the streets</h3>
+                        <p>Choose your ride and take the fast lane.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="offer-section reveal" id="offers">
+            <div class="wrap offer-wrap">
+                <div class="intro">
+                    <div class="kicker">A gift for your next move</div>
+                    <h2>Free offers</h2>
+                    <p>Tap an offer to get started. More drops are on the way.</p>
+                </div>
+                <div class="offer-grid">
+                    <article class="offer">
+                        <div class="offer-head"><img src="images/slider-menu-0.DDH7Abmv.png" alt="Gold bars">
+                            <div>
+                                <div class="offer-label">Starter reward</div>
+                                <h3>2,000 GC</h3>
+                            </div>
+                        </div>
+                        <p>Your welcome boost for getting started in Grandmobile.</p><button class="claim"
+                            data-offer="2,000 GC">Click to get 2,000 GC</button>
+                    </article>
+                    <article class="offer">
+                        <div class="offer-head"><img src="images/slider-0.BKH_ym7C.png" alt="Cash and gold reward">
+                            <div>
+                                <div class="offer-label">Daily drop</div>
+                                <h3>20M cash</h3>
+                            </div>
+                        </div>
+                        <p>Come back each day and tap in for your daily cash offer.</p><button class="claim"
+                            data-offer="daily 20M cash">Click to get daily 20M cash</button>
+                    </article>
+                    <article class="offer">
+                        <div class="offer-head"><img src="images/slider-menu-2.DjahUV4h.png" alt="Bonus character">
+                            <div>
+                                <div class="offer-label">Coming soon</div>
+                                <h3>Bonus drops</h3>
+                            </div>
+                        </div>
+                        <p>New surprises and community rewards are coming soon.</p><button class="claim"
+                            data-offer="bonus">See what's coming</button>
+                    </article>
+                </div>
+                <div class="social" id="community">
+                    <div class="kicker">Stay in the loop</div>
+                    <h2>Endless possibilities</h2>
+                    <p>Join the Grandmobile community and catch the next drop.</p>
+                    <div class="social-links"><a href="https://discord.gg/grnd" target="_blank" rel="noreferrer">JOIN
+                            DISCORD ↗</a><a href="https://www.youtube.com/channel/UCXBEpDlLUCwo-0O0gmW0T-g"
+                            target="_blank" rel="noreferrer">YOUTUBE ↗</a></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="wrap footer"><span>© 2025 <b>GRANDMOBILE</b> · Your world at your fingertips.</span><span>Offer
+            buttons display demo feedback; rewards are subject to availability.</span></footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>const toast = document.getElementById('toast'); let timer; document.querySelectorAll('.claim').forEach(button => button.addEventListener('click', () => { const offer = button.dataset.offer; if (offer === 'bonus') { show('More offers are coming soon. Stay tuned!'); return } location.href = 'register.html?offer=' + encodeURIComponent(offer) })); function show(text) { toast.textContent = text; toast.classList.add('show'); clearTimeout(timer); timer = setTimeout(() => toast.classList.remove('show'), 3300) } const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target) } }), { threshold: .12 }); document.querySelectorAll('.reveal').forEach(el => observer.observe(el));</script>
+</body>
+
+</html>
